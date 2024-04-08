@@ -1,0 +1,20 @@
+body, html {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+#calculator {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#screen {
+    padding-top: 50px;
+    padding-left: 100px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
