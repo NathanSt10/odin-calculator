@@ -1,8 +1,9 @@
 var x = y = operator = null;
+var isEvaluated = false;
 const calculator = document.querySelector("#calculator");
 const buttons = document.querySelector("#buttons");
 const screen = document.querySelector("#screen");
-screen.textContent = "Hello";
+// screen.textContent = "Hello";
 
 for (let i = 0; i <= 9; ++i) {
     const button = document.createElement("button");
@@ -12,86 +13,97 @@ for (let i = 0; i <= 9; ++i) {
 }
 const addition = document.createElement("button");
 addition.textContent = "+";
-addition.addEventListener("click", () => {if (x !== null) operator = add;});
+addition.addEventListener("click", () => {if (x !== null) operator = add;operator;});
 buttons.appendChild(addition);
 
 const subtraction = document.createElement("button");
 subtraction.textContent = "-";
-subtraction.addEventListener("click", () => {if (x !== null) operator = subtract;});
+subtraction.addEventListener("click", () => {if (x !== null) operator = subtract;operator;});
 buttons.appendChild(subtraction);
 
 const multiplication = document.createElement("button");
 multiplication.textContent = "x";
-multiplication.addEventListener("click", () => {if (x !== null) operator = multiply;});
+multiplication.addEventListener("click", () => {if (x !== null) operator = multiply;operator;});
 buttons.appendChild(multiplication);
 
 const division = document.createElement("button");
 division.textContent = "÷";
-division.addEventListener("click", () => {if (x !== null) operator = divide;});
+division.addEventListener("click", () => {if (x !== null) operator = divide;operator;});
 buttons.appendChild(division);
 
 const equals = document.createElement("button");
-division.textContent = "=";
-division.addEventListener("click", () => {if (y !== null) console.log(operator(x,y));});
-buttons.appendChild(division);
+equals.textContent = "=";
+equals.addEventListener("click", () => {if (y != null) operator();});
+buttons.appendChild(equals);
 
-
-console.log("x = " + x);
-console.log("operator = " + operator);
-console.log("y = " + y);
-console.log("---");
-console.log();
-
+const clear = document.createElement("button");
+clear.textContent = "c";
+clear.addEventListener("click", () => {x = y = operator = null;screen.textContent = ""});
+buttons.appendChild(clear);
 
 function populate(i) {
-    let temp = i.toString();
-    // console.log(temp)
-    
-    if (operator === null) x = i;
-    else y = i;
-    console.log("x = " + x);
-    console.log("operator = " + operator);
-    console.log("y = " + y);
-    console.log("---");
+    let numStr = i.toString();
+    if (x === null || (isEvaluated && operator === null)) {
+        x = numStr;
+        isEvaluated = false;
+        screen.textContent = x;
+    }
+    else if (operator === null) {
+        x = x + numStr;
+        screen.textContent = x;
+    }
+    else if (y === null) {
+        y = numStr;
+        screen.textContent = y;
+    }
+    else {
+        y = y + numStr;
+        screen.textContent = y;
+    }
 }
 
-function add(x, y) {
-    console.log(x);
-    let a = x;
-    let b = y;
-    console.log(a);
-    x = y = operator = null;
-    console.log(a + b);
-    return a + b;
+function add() {
+    x = parseInt(x);
+    y = parseInt(y);
+    x = x + y;
+    x = x.toString();
+    y = operator = null;
+    isEvaluated = true;
+    screen.textContent = x;
 }
 
-function subtract(x, y) {
-    console.log(x);
-    let a = x;
-    let b = y;
-    console.log(a);
-    x = y = operator = null;
-    console.log(a + b);
-    return a - b;
+function subtract() {
+    x = parseInt(x);
+    y = parseInt(y);
+    x = x - y;
+    x = x.toString();
+    y = operator = null;
+    isEvaluated = true;
+    screen.textContent = x;
 }
 
-function multiply(x, y) {
-    console.log(x);
-    let a = x;
-    let b = y;
-    console.log(a);
-    x = y = operator = null;
-    console.log(a + b);
-    return a * b;
+function multiply() {
+    x = parseInt(x);
+    y = parseInt(y);
+    x = x * y;
+    x = x.toString();
+    y = operator = null;
+    isEvaluated = true;
+    screen.textContent = x;
 }
 
-function divide(x, y) {
-    console.log(x);
-    if (y == 0) return NaN;
-    let a = x;
-    let b = y;
-    console.log(a);
-    x = y = operator = null;
-    console.log(a + b);
-    return a / b;
+function divide() {
+    if (y == 0) {
+        screen.textContent = "Err";
+        x = y = operator = null;
+        isEvaluated = true;
+        return;
+    }
+    x = parseInt(x);
+    y = parseInt(y);
+    x = x / y;
+    x = x.toString();
+    y = operator = null;
+    isEvaluated = true;
+    screen.textContent = x;
 }
