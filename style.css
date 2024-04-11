@@ -30,7 +30,25 @@ body, html {
     width: 110px;
     height: 160px;
     display: flex;
+    /* flex-wrap: wrap; */
+    gap: 5px;
+}
+
+#numbers {
+    /* width: 110px; */
+    /* height: 160px; */
+    display: flex;
+    flex-direction: row-reverse;
     flex-wrap: wrap;
+    gap: 5px;
+}
+
+#operators {
+    /* width: 110px; */
+    /* height: 160px; */
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
     gap: 5px;
 }
 
